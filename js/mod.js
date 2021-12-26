@@ -1,8 +1,8 @@
 let modInfo = {
-	name: "The ??? Tree",
-	id: "mymod",
-	author: "nobody",
-	pointsName: "points",
+	name: "The Cookie Tree",
+	id: "apeirotopiccookietree",
+	author: "Apeirotopic",
+	pointsName: "cookies",
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "",
@@ -13,16 +13,22 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "0.1.0",
+	name: "The Cash Money-en-ing",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+	<h3>v0.1.0 The Cash Money-en-ing</h3><br>
+		- Fulfilled the sales layer's destiny<br>
+		- Began conceptualizing future layers<br>
+		<br>
+	<h3>v0.0.1</h3><br>
+		- Added the sales layer<br>
+		<br>
+	<h3>v0.0.0 Existion's Present</h3><br>
+		- Yep, I'm pretty certain the game exists now`
 
-let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
+let winText = `Congratulations! You've made it through a whole 8 upgrades! There will be more soon, but not now.`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -34,7 +40,7 @@ function getStartPoints(){
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	return true
+	return hasUpgrade("s", 11);
 }
 
 // Calculate points/sec!
@@ -43,6 +49,18 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
+	if(hasUpgrade("s", 22)) {
+		gain = gain.plus( tmp["s"].upgrades["22"].effect );
+	}
+	if(hasUpgrade("s", 12)) {
+		gain = gain.times( tmp["s"].upgrades["12"].effect );
+	}
+	if(hasUpgrade("s", 13)) {
+		gain = gain.times( tmp["s"].upgrades["13"].effect );
+	}
+	if(hasUpgrade("s", 14)) {
+		gain = gain.times( tmp["s"].upgrades["14"].effect );
+	}
 	return gain
 }
 
@@ -56,7 +74,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return hasUpgrade("s", 24)
 }
 
 
